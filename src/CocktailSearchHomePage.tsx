@@ -2,7 +2,12 @@ import React, {useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
 import {SearchItem, SearchResults} from "./models/cocktail-search-home.api";
 import {Drink, Ingredient} from "./models/cocktaildb.api";
+import {Filter} from "./CocktailSearchFilter";
 
+
+export interface CocktailSearchHomePageOptions {
+    profileId: string;
+}
 
 export interface CocktailSearchHomePageOptions {
     profileId: string;
@@ -11,11 +16,14 @@ export interface CocktailSearchHomePageOptions {
 const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options: CocktailSearchHomePageOptions) => {
 
     const [searchResults, setSearchResults] = useState<SearchResults>({
-        profileId: "",
+        profileId: options.profileId,
         searchItems: []
     });
 
+    const [filters, setFilters] = useState<Filter[]>([]);
+
     const handleResults = (results: SearchResults) => {
+        console.info("Handling results...");
         setSearchResults((prev) => ({
             profileId: results.profileId,
             searchItems: results.searchItems
@@ -24,12 +32,14 @@ const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options
 
     return (
         <>
-            <ApiSearchBox type={"cocktail"} profileId={options.profileId} handleResults={handleResults}/>
-            {searchResults?.searchItems?.map((searchItem: SearchItem) =>
+            <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
+            <button type="button">Filters</button>
+            <ul>
+
+            </ul>
+            {searchResults?.searchItems?.filter(searchItem => searchItem.items).map((searchItem: SearchItem) =>
                 <div key={'div$' + searchItem.category}>
-
                     <h1 key={'h1$' + searchItem.category}>{searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}</h1>
-
                     <ul key={searchItem.category}>
                         {searchItem.items.map((item: any) => {
                             if (searchItem.category === "drinks") {
