@@ -8,7 +8,7 @@ export interface CocktailSearchHomePageOptions {
     profileId: string;
 }
 
-const CocktailSearchHomePage: React.FC = (options: CocktailSearchHomePageOptions) => {
+const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options: CocktailSearchHomePageOptions) => {
 
     const [searchResults, setSearchResults] = useState<SearchResults>({
         profileId: "",
