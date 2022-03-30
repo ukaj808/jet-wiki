@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
 import {SearchItem, SearchResults} from "./models/cocktail-search-home.api";
 import {Drink, Ingredient} from "./models/cocktaildb.api";
-import {Filter} from "./CocktailSearchFilter";
+import {Filter} from "./CocktailFilterSidebar";
 
 
 export interface CocktailSearchHomePageOptions {
