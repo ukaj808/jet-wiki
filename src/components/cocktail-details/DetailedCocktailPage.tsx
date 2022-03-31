@@ -1,5 +1,5 @@
 import React from "react";
-import {Drink} from "./models/cocktaildb.api";
+import {Drink} from "../../models/cocktaildb.api";
 
 export interface DetailedCocktailPageOptions {
     drink: Drink;

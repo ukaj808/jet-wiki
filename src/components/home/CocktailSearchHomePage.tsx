@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
-import {SearchItem, SearchResults} from "./models/cocktail-search-home.api";
-import {Drink, Ingredient} from "./models/cocktaildb.api";
-import {Filter} from "./CocktailFilterSidebar";
+import {SearchItem, SearchResults} from "../../models/cocktail-search-home.api";
+import {Drink, Ingredient} from "../../models/cocktaildb.api";
+import {Filter} from "../sidebar/CocktailFilterSidebar";
+import styles from "./styles.css";
 
 
 export interface CocktailSearchHomePageOptions {
@@ -34,12 +35,9 @@ const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options
         <>
             <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
             <button type="button">Filters</button>
-            <ul>
-
-            </ul>
             {searchResults?.searchItems?.filter(searchItem => searchItem.items).map((searchItem: SearchItem) =>
                 <div key={'div$' + searchItem.category}>
-                    <h1 key={'h1$' + searchItem.category}>{searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}</h1>
+                    <h1 className = {styles.yellow} key={'h1$' + searchItem.category}>{searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}</h1>
                     <ul key={searchItem.category}>
                         {searchItem.items.map((item: any) => {
                             if (searchItem.category === "drinks") {

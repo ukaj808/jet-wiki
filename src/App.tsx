@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import {CocktailSearchHomePage} from "./CocktailSearchHomePage";
+import {CocktailSearchHomePage} from "./components/home/CocktailSearchHomePage";
 
 const App = () => (
   <>
