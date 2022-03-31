@@ -15,14 +15,15 @@ export interface FilterOptions {
     toggle(): void;
 
     apply(): void;
+
+    clear(): void;
 }
 
 const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
 
-    return (
-        <div className={options.show ? styles.sidebar : styles.collapsed}>
-            <a className={styles.closeButton} onClick={options.toggle}>&times;</a>
-            {options.filters && Array.from(options.filters.entries())
+
+    const getPossibleFilters = () : JSX.Element[] => {
+        return options.filters && Array.from(options.filters.entries())
                 .filter(([key, val]) => val != null && val.size > 0).map(([key, val]) => {
 
                     return <div key={key}>
@@ -45,8 +46,19 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
                     </div>
 
 
-                })}
+                })
+    }
+
+
+    return (
+        <div className={options.show ? styles.sidebar : styles.collapsed}>
+
+            <a className={styles.closeButton} onClick={options.toggle}>&times;</a>
+
+            {getPossibleFilters()}
+
             <button onClick={options.apply}>Apply Filters</button>
+            <button onClick={options.apply}>Clear Filters</button>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {DetailedReactHTMLElement, ReactElement, ReactHTMLElement, useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
 import {FilterCategories, SearchItem, SearchResults} from "../../models/cocktail-search-home.api";
 import {SearchDrink, SearchIngredient} from "../../models/searchbox.api";
@@ -104,15 +104,13 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
         console.log("apply filters");
     }
 
-    return (
-        <>
+    const clearFilters = () => {
+        console.log("clear filters");
+    }
 
-            <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
-
-            <button type="button" onClick={toggleFilterSidebar}>Filters</button>
-
-            {searchResults?.searchItems?.filter(searchItem => searchItem.items && searchItem.items.length > 0)
-                .map((searchItem: SearchItem) =>
+    const getCataloguedSearchResponse = () : JSX.Element => {
+        return <div className={styles.searchItem}>{searchResults?.searchItems?.filter(searchItem => searchItem.items && searchItem.items.length > 0)
+            .map((searchItem: SearchItem) =>
                 <div key={'div$' + searchItem.category}>
 
                     <h1 className = {styles.yellow} key={'h1$' + searchItem.category}>{searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}</h1>
@@ -134,12 +132,23 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
                     </ul>
 
                 </div>
-            )}
+            )}</div>;
+    }
+
+    return (
+        <>
+
+            <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
+
+            <button type="button" onClick={toggleFilterSidebar}>Filters</button>
+
+            {getCataloguedSearchResponse()}
 
             <CocktailFilterSidebar show={filterOptions.sidebarOpen}
                                    searchCategory={""}
                                    filters={filterOptions.possibleFilters}
                                    toggle={toggleFilterSidebar}
+                                   clear={clearFilters}
                                    apply={applyFilters}/>
         </>
     );
