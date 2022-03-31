@@ -1,10 +1,3 @@
-export interface SearchRequest {
-    searchStr: string;
-    type: string;
-    category?: string;
-    profileId?: string;
-}
-
 export interface SearchResults {
 
     profileId: string;
@@ -17,25 +10,8 @@ export interface SearchItem {
     items: any[];
 }
 
-export interface ApiSearchFields {
-    searchStr: string;
-    category: string;
-    profileId: string;
-    type: string;
-    recentSearches: string[];
-}
-
-
-export interface ApiSearchOptions {
-    type: string;
-    profileId: string;
-
-    handleResults(results: SearchResults): SearchResults;
-}
-
-
-export interface Profile {
-
-    type: string;
-    searches: string[];
-}
+export const FilterCategories: Map<string, string[]> =
+    new Map([
+        ["drinks", ["ingredients", "category", "glass"]],
+        ["ingredients", ["abv"]]
+    ]);

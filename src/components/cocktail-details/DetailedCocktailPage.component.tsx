@@ -1,5 +1,5 @@
 import React from "react";
-import {Drink} from "../../models/cocktaildb.api";
+import {Drink} from "../../models/searchbox.api";
 
 export interface DetailedCocktailPageOptions {
     drink: Drink;
@@ -12,3 +12,5 @@ const DetailedCocktailPageComponent: React.FC<DetailedCocktailPageOptions> = (op
         </>
     );
 }
+
+export {DetailedCocktailPageComponent}
