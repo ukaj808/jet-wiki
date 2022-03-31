@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import {CocktailSearchHomePage} from "./components/home/CocktailSearchHomePage";
+import {CocktailSearchHomePageComponent} from "./components/home/CocktailSearchHomePage.component";
 
 const App = () => (
   <>
-      <CocktailSearchHomePage profileId={""}/>
+      <CocktailSearchHomePageComponent profileId={""}/>
   </>
 );
 ReactDOM.render(<App />, document.getElementById("app"));

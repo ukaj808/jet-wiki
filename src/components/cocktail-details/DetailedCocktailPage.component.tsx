@@ -5,7 +5,7 @@ export interface DetailedCocktailPageOptions {
     drink: Drink;
 }
 
-const DetailedCocktailPage: React.FC<DetailedCocktailPageOptions> = (options: DetailedCocktailPageOptions) => {
+const DetailedCocktailPageComponent: React.FC<DetailedCocktailPageOptions> = (options: DetailedCocktailPageOptions) => {
 
     return (
         <>

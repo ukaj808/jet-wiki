@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
 import {SearchItem, SearchResults} from "../../models/cocktail-search-home.api";
 import {Drink, Ingredient} from "../../models/cocktaildb.api";
-import {Filter} from "../sidebar/CocktailFilterSidebar";
-import styles from "./styles.css";
+import {Filter} from "../sidebar/CocktailFilterSidebar.component";
+import styles from "./styles.module.css";
 
 
 export interface CocktailSearchHomePageOptions {
@@ -14,7 +14,7 @@ export interface CocktailSearchHomePageOptions {
     profileId: string;
 }
 
-const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options: CocktailSearchHomePageOptions) => {
+const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> = (options: CocktailSearchHomePageOptions) => {
 
     const [searchResults, setSearchResults] = useState<SearchResults>({
         profileId: options.profileId,
@@ -61,4 +61,4 @@ const CocktailSearchHomePage: React.FC<CocktailSearchHomePageOptions> = (options
 
 };
 
-export {CocktailSearchHomePage}
+export {CocktailSearchHomePageComponent}
