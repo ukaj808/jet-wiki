@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./styles.module.css";
 
 export interface Filter {
@@ -14,13 +14,45 @@ export interface FilterOptions {
 
     toggle(): void;
 
-    apply(): void;
+    apply(selectedFilters: Map<String, Set<string>>): void;
 
     clear(): void;
 }
 
 const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
 
+    const [selectedFilters, setSelectedFilters] = useState<Map<string, Set<string>>>(new Map());
+
+    const handleChange = (category: string, {
+                              target: {name},
+                          }: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) =>
+        setSelectedFilters((prev) => {
+
+            let selected = prev.get(category);
+
+            if (selected == null){
+                prev.set(category, new Set([name]));
+            }
+            else if(selected.has(name)) {
+                selected.delete(name);
+                if (selected.size === 0) prev.delete(category);
+            } else{
+                selected.add(name);
+            }
+
+            return prev;
+        });
+
+    const getFilterValue = (category: string, filterValue: string): number => {
+        let categoryValues: Set<string> | undefined = selectedFilters.get(category);
+        if (categoryValues != null && categoryValues.has(filterValue)) return 1;
+        return 0;
+    }
+
+    const clearFilters = () => {
+        setSelectedFilters(() => new Map())
+        options.clear();
+    }
 
     const getPossibleFilters = () : JSX.Element[] => {
         return options.filters && Array.from(options.filters.entries())
@@ -33,10 +65,12 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
                         {
                             <ul key={key}>
 
-                                {Array.from(val).map((filterValue) =>
+                                {Array.from(val).map((filterValue, index) =>
 
-                                    <li key={filterValue}>
-                                        <input type="checkbox" name={filterValue} value={filterValue}/>
+                                    <li key={filterValue + index}>
+                                        <input type="checkbox" name={filterValue}
+                                               value={getFilterValue(key, filterValue)}
+                                               onChange={(input) => handleChange(key, input)}/>
                                         <label htmlFor={filterValue}>{filterValue}</label>
                                     </li>
 
@@ -57,8 +91,8 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
 
             {getPossibleFilters()}
 
-            <button onClick={options.apply}>Apply Filters</button>
-            <button onClick={options.apply}>Clear Filters</button>
+            <button onClick={() => options.apply(selectedFilters)}>Apply Filters</button>
+            <button onClick={clearFilters}>Clear Filters</button>
         </div>
     );
 }
