@@ -37,6 +37,7 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
     const handleResults = (results: SearchResults) => {
 
+        clearFilters();
         setSearchResults((prev) => ({
             profileId: results.profileId,
             searchItems: results.searchItems,
@@ -71,18 +72,18 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
                         }
 
                         if (possibleFilters.has("hasAlcohol")) {
-                            possibleFilters.get("hasAlcohol")?.add(drink.abv);
+                            possibleFilters.get("hasAlcohol")?.add(drink.hasAlcohol);
                         } else {
-                            possibleFilters.set("hasAlcohol", new Set<string>([ingredient.abv]));
+                            possibleFilters.set("hasAlcohol", new Set<string>([drink.hasAlcohol]));
                         }
                     })
                 } else if (searchItem.category === "ingredients") {
 
                     searchItem.items.map((ingredient: SearchIngredient) => {
                         if (possibleFilters.has("hasAlcohol")) {
-                            possibleFilters.get("hasAlcohol")?.add(ingredient.abv);
+                            possibleFilters.get("hasAlcohol")?.add(ingredient.hasAlcohol);
                         } else {
-                            possibleFilters.set("hasAlcohol", new Set<string>([ingredient.abv]));
+                            possibleFilters.set("hasAlcohol", new Set<string>([ingredient.hasAlcohol]));
                         }
                     });
 
@@ -112,11 +113,7 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
                 }
             });
         } else {
-            setFilterOptions((prev) => {
-                return {...prev, filtersApplied: false,
-                    filteredResults: []
-                }
-            });
+            clearFilters();
         }
     }
 
@@ -134,8 +131,6 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
                                 return values.has(attribute);
                             } else if (filterCategory === "ingredients") {
                                 attribute = item[filterCategory];
-                                console.log(values);
-                                console.log(attribute);
                                 return _.intersectionWith(Array.from(values), attribute, _.isEqual).length > 0;
                             }
                         }
@@ -150,7 +145,11 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
     }
 
     const clearFilters = () => {
-
+        setFilterOptions((prev) => {
+            return {...prev, filtersApplied: false,
+                filteredResults: []
+            }
+        });
     }
 
     const getCataloguedSearchResponse = () : JSX.Element => {

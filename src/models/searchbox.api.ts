@@ -5,7 +5,7 @@ export interface SearchDrink {
     category: string;
     ingredients: string[];
     glass: string;
-    hasAlcohol: boolean;
+    hasAlcohol: string;
 }
 
 // Our APIS ingredient model for much cleaner mappings; needed for filtering.
@@ -13,5 +13,5 @@ export interface SearchIngredient {
     id: string;
     name: string;
     abv: string;
-    hasAlcohol: boolean;
+    hasAlcohol: string;
 }
