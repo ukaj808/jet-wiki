@@ -1,7 +1,7 @@
 export interface SearchResults {
 
     profileId: string;
-    searchItems?: SearchItem[];
+    searchItems: SearchItem[];
 
 }
 

@@ -14,12 +14,12 @@ export interface FilterOptions {
 
     toggle(): void;
 
-    apply(selectedFilters: Map<String, Set<string>>): void;
+    apply(selectedFilters: Map<string, Set<string>>): void;
 
     clear(): void;
 }
 
-const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
+const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
 
     const [selectedFilters, setSelectedFilters] = useState<Map<string, Set<string>>>(new Map());
 
@@ -50,7 +50,7 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
     }
 
     const clearFilters = () => {
-        setSelectedFilters(() => new Map())
+        setSelectedFilters(() => new Map());
         options.clear();
     }
 
@@ -80,7 +80,7 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
                     </div>
 
 
-                })
+                });
     }
 
 
@@ -97,4 +97,4 @@ const CocktailFilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) 
     );
 }
 
-export {CocktailFilterSidebar}
+export {FilterSidebar}

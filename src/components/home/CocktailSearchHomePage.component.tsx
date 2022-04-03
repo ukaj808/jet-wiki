@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import ApiSearchBox from "api-search-box/ApiSearchBox";
 import {SearchItem, SearchResults} from "../../models/cocktail-search-home.api";
 import {SearchDrink, SearchIngredient} from "../../models/searchbox.api";
-import {CocktailFilterSidebar} from "../sidebar/CocktailFilterSidebar.component";
-import styles from "./styles.module.css";
+import {FilterSidebar} from "../sidebar/FilterSidebar.component";
 import _ from "lodash";
+import {Catalogue} from "../catalogue/Catalogue.component";
 
 export interface CocktailSearchHomePageOptions {
     profileId: string;
@@ -108,7 +108,8 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
     const applyFilters = (selectedFilters: Map<string, Set<string>>) => {
         if (selectedFilters.size > 0) {
             setFilterOptions((prev) => {
-                return {...prev, filtersApplied: true,
+                return {
+                    ...prev, filtersApplied: true,
                     filteredResults: filteredSearchItems(searchResults.searchItems, selectedFilters)
                 }
             });
@@ -123,7 +124,7 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
             let filteredSearchItem: SearchItem = {
                 category: searchItem.category,
                 items: searchItem.items?.filter((item) => {
-                    for(const [filterCategory, values] of Array.from(selectedFilters.entries())) {
+                    for (const [filterCategory, values] of Array.from(selectedFilters.entries())) {
                         let attribute = item[filterCategory];
                         if (attribute != null) {
                             if (typeof attribute === 'string' || attribute instanceof String) {
@@ -146,51 +147,11 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
     const clearFilters = () => {
         setFilterOptions((prev) => {
-            return {...prev, filtersApplied: false,
+            return {
+                ...prev, filtersApplied: false,
                 filteredResults: []
             }
         });
-    }
-
-    const getCataloguedSearchResponse = () : JSX.Element => {
-        let resultSet = filterOptions.filtersApplied ? filterOptions.filteredResults : searchResults.searchItems;
-        return <div className={styles.searchItem}>
-                {resultSet?.filter(searchItem => searchItem.items && searchItem.items.length > 0)
-                .map((searchItem: SearchItem) => getCatalogueSection(searchItem))}
-            </div>;
-    }
-
-    const getCatalogueSection = (searchItem: SearchItem) : JSX.Element | undefined => {
-
-        return <section key={'div$' + searchItem.category}>
-
-            <h1 className = {styles.yellow} key={'h1$' + searchItem.category}>{searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}</h1>
-
-            {getCatalogueSectionItems(searchItem)}
-
-        </section>
-
-
-    }
-
-    const getCatalogueSectionItems = (searchItem: SearchItem) : JSX.Element => {
-        return <ul key={searchItem.category}>
-            {searchItem.items.map(item => getCatalogueItem(searchItem.category, item))}
-        </ul>
-    }
-
-    const getCatalogueItem = (category: string, item: any) : JSX.Element | undefined => {
-        if (category === "drinks") {
-            let drink: SearchDrink = item as SearchDrink;
-            return <li key={drink.id}><h2>{drink.name}</h2></li>
-
-        } else if (category === "ingredients") {
-
-            let ingredient: SearchIngredient = item as SearchIngredient;
-            return <li key={ingredient.id}><h2>{ingredient.name}</h2></li>
-
-        }
-        return undefined;
     }
 
     return (
@@ -200,14 +161,22 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
             <button type="button" onClick={toggleFilterSidebar}>Filters</button>
 
-            {getCataloguedSearchResponse()}
+            <Catalogue items={filterOptions.filtersApplied
+                ? filterOptions.filteredResults :
+                searchResults.searchItems}/>
 
-            <CocktailFilterSidebar show={filterOptions.sidebarOpen}
-                                   searchCategory={""}
-                                   filters={filterOptions.possibleFilters}
-                                   toggle={toggleFilterSidebar}
-                                   clear={clearFilters}
-                                   apply={applyFilters}/>
+            <FilterSidebar show={filterOptions.sidebarOpen}
+                           searchCategory={""}
+                           filters={filterOptions.possibleFilters}
+                           toggle={toggleFilterSidebar}
+                           clear={() => {
+                               clearFilters();
+                               toggleFilterSidebar();
+                           }}
+                           apply={(selectedFilters) => {
+                               applyFilters(selectedFilters);
+                               toggleFilterSidebar();
+                           }}/>
         </>
     );
 
