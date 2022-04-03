@@ -164,7 +164,7 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
             <Catalogue items={filterOptions.filtersApplied
                 ? filterOptions.filteredResults :
                 searchResults.searchItems}
-                       onInfoClick={}/>
+                       onInfoClick={()=>{}}/>
 
             <FilterSidebar show={filterOptions.sidebarOpen}
                            searchCategory={""}
