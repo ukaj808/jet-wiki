@@ -27,26 +27,26 @@ const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
                               target: {name},
                           }: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) =>
         setSelectedFilters((prev) => {
+            let result = new Map(prev)
 
-            let selected = prev.get(category);
+            let selected = result.get(category);
 
             if (selected == null){
-                prev.set(category, new Set([name]));
+                result.set(category, new Set([name]));
             }
             else if(selected.has(name)) {
                 selected.delete(name);
-                if (selected.size === 0) prev.delete(category);
+                if (selected.size === 0) result.delete(category);
             } else{
                 selected.add(name);
             }
 
-            return prev;
+            return result;
         });
 
-    const getFilterValue = (category: string, filterValue: string): number => {
+    const getFilterChecked = (category: string, filterValue: string): boolean => {
         let categoryValues: Set<string> | undefined = selectedFilters.get(category);
-        if (categoryValues != null && categoryValues.has(filterValue)) return 1;
-        return 0;
+        return categoryValues != null && categoryValues.has(filterValue);
     }
 
     const clearFilters = () => {
@@ -69,7 +69,7 @@ const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
 
                                     <li key={filterValue + index}>
                                         <input type="checkbox" name={filterValue}
-                                               value={getFilterValue(key, filterValue)}
+                                               checked={getFilterChecked(key, filterValue)}
                                                onChange={(input) => handleChange(key, input)}/>
                                         <label htmlFor={filterValue}>{filterValue}</label>
                                     </li>
@@ -91,8 +91,8 @@ const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
 
             {getPossibleFilters()}
 
-            <button onClick={() => options.apply(selectedFilters)}>Apply Filters</button>
-            <button onClick={clearFilters}>Clear Filters</button>
+            <button onClick={() => options.apply(selectedFilters)} disabled={selectedFilters.size === 0}>Apply Filters</button>
+            <button onClick={clearFilters} disabled={selectedFilters.size === 0}>Clear Filters</button>
         </div>
     );
 }

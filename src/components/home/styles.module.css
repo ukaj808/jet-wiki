@@ -5,3 +5,7 @@
 .catalogue {
     list-style-type: none;
 }
+
+.hidden {
+    visibility: collapse;
+}

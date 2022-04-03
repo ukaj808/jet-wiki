@@ -5,6 +5,7 @@ import {SearchDrink, SearchIngredient} from "../../models/searchbox.api";
 import {FilterSidebar} from "../sidebar/FilterSidebar.component";
 import _ from "lodash";
 import {Catalogue} from "../catalogue/Catalogue.component";
+import styles from "./styles.module.css";
 
 export interface CocktailSearchHomePageOptions {
     profileId: string;
@@ -118,6 +119,10 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
         }
     }
 
+    const showFilterButton = () => {
+        return filterOptions.possibleFilters.size > 0;
+    }
+
     const filteredSearchItems = (searchItems: SearchItem[] | undefined, selectedFilters: Map<string, Set<string>>): SearchItem[] => {
         let results: SearchItem[] = [];
         searchItems?.forEach((searchItem) => {
@@ -159,7 +164,7 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
             <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
 
-            <button type="button" onClick={toggleFilterSidebar}>Filters</button>
+            <button className={showFilterButton() ? undefined : styles.hidden} type="button" onClick={toggleFilterSidebar}>Filters</button>
 
             <Catalogue items={filterOptions.filtersApplied
                 ? filterOptions.filteredResults :
