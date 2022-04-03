@@ -163,7 +163,8 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
             <Catalogue items={filterOptions.filtersApplied
                 ? filterOptions.filteredResults :
-                searchResults.searchItems}/>
+                searchResults.searchItems}
+                       onInfoClick={}/>
 
             <FilterSidebar show={filterOptions.sidebarOpen}
                            searchCategory={""}
