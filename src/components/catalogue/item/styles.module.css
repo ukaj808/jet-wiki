@@ -1,0 +1,32 @@
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 80%); /* Black w/opacity */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlayContent {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: start;
+    align-items: start;
+    width: 80%; /* 100% width */
+    height: 80%; /* 100% width */
+    overflow: auto;
+}
+
+/* Position the close button (top right corner) */
+.closeButton {
+    align-self: end;
+    font-size: 60px;
+    margin-right: 15px;
+}

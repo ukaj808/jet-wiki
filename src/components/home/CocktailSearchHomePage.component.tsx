@@ -94,9 +94,15 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
         return possibleFilters;
     }
 
-    const toggleFilterSidebar = () => {
+    const openFilterSidebar = () => {
         setFilterOptions((prev) => {
-            return {...prev, sidebarOpen: !prev.sidebarOpen};
+            return {...prev, sidebarOpen: true};
+        });
+    }
+
+    const closeFilterSidebar = () => {
+        setFilterOptions((prev) => {
+            return {...prev, sidebarOpen: false};
         });
     }
 
@@ -164,25 +170,24 @@ const CocktailSearchHomePageComponent: React.FC<CocktailSearchHomePageOptions> =
 
             <ApiSearchBox type={"cocktail"} profileId={searchResults.profileId} handleResults={handleResults}/>
 
-            <button className={showFilterButton() ? undefined : styles.hidden} type="button" onClick={toggleFilterSidebar}>Filters</button>
+            <button className={showFilterButton() ? undefined : styles.hidden} type="button" onClick={openFilterSidebar}>Filters</button>
 
             <Catalogue items={filterOptions.filtersApplied
                 ? filterOptions.filteredResults :
-                searchResults.searchItems}
-                       onInfoClick={()=>{}}/>
+                searchResults.searchItems}/>
 
-            <FilterSidebar show={filterOptions.sidebarOpen}
+            {filterOptions.sidebarOpen && <FilterSidebar
                            searchCategory={""}
                            filters={filterOptions.possibleFilters}
-                           toggle={toggleFilterSidebar}
+                           close={closeFilterSidebar}
                            clear={() => {
                                clearFilters();
-                               toggleFilterSidebar();
+                               closeFilterSidebar();
                            }}
                            apply={(selectedFilters) => {
                                applyFilters(selectedFilters);
-                               toggleFilterSidebar();
-                           }}/>
+                               closeFilterSidebar();
+                           }}/>}
         </>
     );
 

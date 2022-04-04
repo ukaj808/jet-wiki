@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./styles.module.css";
 import {SearchItem} from "../../models/cocktail-search-home.api";
 import ImageList from "@mui/material/ImageList";
@@ -7,13 +7,39 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
+import {Details, ItemDetailsView} from "./item/ItemDetailsView.component";
 
 export interface CatalogueOptions {
     items: SearchItem[];
-    onInfoClick(): void;
 }
 
 const Catalogue: React.FC<CatalogueOptions> = (options: CatalogueOptions) => {
+
+    const [selectedItem, setSelectedItem] = useState<Details | null>(null);
+
+    const selectItem = (details: Details) => {
+        setSelectedItem(() => details);
+    }
+
+    const buildCocktailDetails = (drink: SearchDrink): Details => {
+        return {
+            title: drink.name,
+            subTitle: drink.category,
+            note: drink.glass,
+            imageSource: drink.imageSource,
+            longDescription: `Ingredients: ${drink.ingredients.join(', ')}`
+        }
+    }
+
+    const buildIngredientDetails = (ingredient: SearchIngredient): Details => {
+        return {
+            title: ingredient.name,
+            subTitle: "Ingredient",
+            note: "",
+            imageSource: ingredient.imageSource,
+            longDescription: ingredient.description
+        }
+    }
 
     const getCatalogueSection = (searchItem: SearchItem): JSX.Element | undefined => {
 
@@ -34,6 +60,7 @@ const Catalogue: React.FC<CatalogueOptions> = (options: CatalogueOptions) => {
         </ImageList>
     }
 
+    //todo: generify!!
     const getCatalogueItem = (category: string, item: any): JSX.Element | undefined => {
         if (category === "drinks") {
             let drink: SearchDrink = item as SearchDrink;
@@ -47,7 +74,7 @@ const Catalogue: React.FC<CatalogueOptions> = (options: CatalogueOptions) => {
                 <ImageListItemBar
                     title={drink.name}
                     actionIcon={
-                        <IconButton onClick={options.onInfoClick}
+                        <IconButton onClick={() => selectItem(buildCocktailDetails(drink))}
                             sx={{color: 'rgba(255, 255, 255, 0.54)'}}
                             aria-label={`info about ${drink.name}`}>
                             <InfoIcon/>
@@ -71,6 +98,7 @@ const Catalogue: React.FC<CatalogueOptions> = (options: CatalogueOptions) => {
                     title={ingredient.name}
                     actionIcon={
                         <IconButton
+                            onClick={() => selectItem(buildIngredientDetails(ingredient))}
                             sx={{color: 'rgba(255, 255, 255, 0.54)'}}
                             aria-label={`info about ${ingredient.name}`}>
                             <InfoIcon/>
@@ -87,6 +115,7 @@ const Catalogue: React.FC<CatalogueOptions> = (options: CatalogueOptions) => {
         <>
             {options.items?.filter(searchItem => searchItem.items && searchItem.items.length > 0)
                 .map((searchItem: SearchItem) => getCatalogueSection(searchItem))}
+            {selectedItem && <ItemDetailsView details={selectedItem} close={() => setSelectedItem(null)}/>}
         </>
     );
 }

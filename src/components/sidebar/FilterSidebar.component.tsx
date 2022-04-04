@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from "./styles.module.css";
+import ReactDOM from "react-dom";
 
 export interface Filter {
     id: string;
@@ -8,11 +9,10 @@ export interface Filter {
 
 export interface FilterOptions {
     searchCategory: string;
-    show: boolean;
     // Key: Category Name, Value: Filters and their attribute id
     filters: Map<string, Set<string>>;
 
-    toggle(): void;
+    close(): void;
 
     apply(selectedFilters: Map<string, Set<string>>): void;
 
@@ -63,7 +63,7 @@ const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
                         <h3>{key}</h3>
 
                         {
-                            <ul key={key}>
+                            <ul key={key} className={styles.filters}>
 
                                 {Array.from(val).map((filterValue, index) =>
 
@@ -84,16 +84,17 @@ const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
     }
 
 
-    return (
-        <div className={options.show ? styles.sidebar : styles.collapsed}>
+    return ReactDOM.createPortal(
+        <div className={styles.sidebar}>
 
-            <a className={styles.closeButton} onClick={options.toggle}>&times;</a>
+            <a className={styles.closeButton} onClick={options.close}>&times;</a>
 
             {getPossibleFilters()}
 
             <button onClick={() => options.apply(selectedFilters)} disabled={selectedFilters.size === 0}>Apply Filters</button>
             <button onClick={clearFilters} disabled={selectedFilters.size === 0}>Clear Filters</button>
-        </div>
+        </div>,
+        document.getElementById('overlay-portal')!
     );
 }
 
