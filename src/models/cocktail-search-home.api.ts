@@ -1,3 +1,8 @@
+export interface SearchItem {
+    category: string;
+    items: any[];
+}
+
 export interface SearchResults {
 
     profileId: string;
@@ -5,13 +10,7 @@ export interface SearchResults {
 
 }
 
-export interface SearchItem {
-    category: string;
-    items: any[];
-}
-
-export const FilterCategories: Map<string, string[]> =
-    new Map([
-        ["drinks", ["ingredients", "category", "glass"]],
-        ["ingredients", ["abv"]]
-    ]);
+export const FilterCategories: Map<string, string[]> = new Map([
+  ['drinks', ['ingredients', 'category', 'glass']],
+  ['ingredients', ['abv']],
+]);

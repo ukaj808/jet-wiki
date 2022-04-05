@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import styles from "./styles.module.css";
-import ReactDOM from "react-dom";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import styles from './styles.module.css';
 
 export interface Filter {
     id: string;
@@ -19,83 +19,85 @@ export interface FilterOptions {
     clear(): void;
 }
 
-const FilterSidebar: React.FC<FilterOptions> = (options: FilterOptions) => {
+const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: FilterOptions) {
+  const [selectedFilters, setSelectedFilters] = useState<Map<string, Set<string>>>(new Map());
 
-    const [selectedFilters, setSelectedFilters] = useState<Map<string, Set<string>>>(new Map());
+  const handleChange = (category: string, {
+    target: { name },
+  }: React.ChangeEvent<HTMLInputElement>) => setSelectedFilters((prev) => {
+    const result = new Map(prev);
 
-    const handleChange = (category: string, {
-                              target: {name},
-                          }: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) =>
-        setSelectedFilters((prev) => {
-            let result = new Map(prev)
+    const selected = result.get(category);
 
-            let selected = result.get(category);
-
-            if (selected == null){
-                result.set(category, new Set([name]));
-            }
-            else if(selected.has(name)) {
-                selected.delete(name);
-                if (selected.size === 0) result.delete(category);
-            } else{
-                selected.add(name);
-            }
-
-            return result;
-        });
-
-    const getFilterChecked = (category: string, filterValue: string): boolean => {
-        let categoryValues: Set<string> | undefined = selectedFilters.get(category);
-        return categoryValues != null && categoryValues.has(filterValue);
+    if (selected == null) {
+      result.set(category, new Set([name]));
+    } else if (selected.has(name)) {
+      selected.delete(name);
+      if (selected.size === 0) result.delete(category);
+    } else {
+      selected.add(name);
     }
 
-    const clearFilters = () => {
-        setSelectedFilters(() => new Map());
-        options.clear();
-    }
+    return result;
+  });
 
-    const getPossibleFilters = () : JSX.Element[] => {
-        return options.filters && Array.from(options.filters.entries())
-                .filter(([key, val]) => val != null && val.size > 0).map(([key, val]) => {
+  const getFilterChecked = (category: string, filterValue: string): boolean => {
+    const categoryValues: Set<string> | undefined = selectedFilters.get(category);
+    return categoryValues != null && categoryValues.has(filterValue);
+  };
 
-                    return <div key={key}>
+  const clearFilters = () => {
+    setSelectedFilters(() => new Map());
+    options.clear();
+  };
 
-                        <h3>{key}</h3>
+  const getPossibleFilters = () : JSX.Element[] => Array.from(options.filters?.entries())
+    .filter(([, val]) => val != null && val.size > 0).map(([filterCategory, values]) => (
+      <div key={filterCategory}>
 
-                        {
-                            <ul key={key} className={styles.filters}>
+        <h3>{filterCategory}</h3>
 
-                                {Array.from(val).map((filterValue, index) =>
+        <ul key={filterCategory} className={styles.filters}>
 
-                                    <li key={filterValue + index}>
-                                        <input type="checkbox" name={filterValue}
-                                               checked={getFilterChecked(key, filterValue)}
-                                               onChange={(input) => handleChange(key, input)}/>
-                                        <label htmlFor={filterValue}>{filterValue}</label>
-                                    </li>
+          {Array.from(values).map((filterValue) => (
+            <li key={filterValue}>
+              <input
+                type="checkbox"
+                name={filterValue}
+                checked={getFilterChecked(filterCategory, filterValue)}
+                onChange={(input) => handleChange(filterCategory, input)}
+              />
+              <label htmlFor={filterValue}>{filterValue}</label>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
 
-                                )}
-                            </ul>
-                        }
-                    </div>
+  return ReactDOM.createPortal(
+    <div className={styles.sidebar}>
 
+      <button type="button" className={styles.closeButton} onClick={options.close}>&times;</button>
 
-                });
-    }
+      {getPossibleFilters()}
 
+      <button
+        type="button"
+        onClick={() => options.apply(selectedFilters)}
+        disabled={selectedFilters.size === 0}
+      >
+        Apply Filters
+      </button>
+      <button
+        type="button"
+        onClick={clearFilters}
+        disabled={selectedFilters.size === 0}
+      >
+        Clear Filters
+      </button>
+    </div>,
+        document.getElementById('overlay-portal')!,
+  );
+};
 
-    return ReactDOM.createPortal(
-        <div className={styles.sidebar}>
-
-            <a className={styles.closeButton} onClick={options.close}>&times;</a>
-
-            {getPossibleFilters()}
-
-            <button onClick={() => options.apply(selectedFilters)} disabled={selectedFilters.size === 0}>Apply Filters</button>
-            <button onClick={clearFilters} disabled={selectedFilters.size === 0}>Clear Filters</button>
-        </div>,
-        document.getElementById('overlay-portal')!
-    );
-}
-
-export {FilterSidebar}
+export default FilterSidebar;

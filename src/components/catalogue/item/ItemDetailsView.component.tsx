@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./styles.module.css";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import styles from './styles.module.css';
 
 export interface Details {
     title: string;
@@ -15,21 +15,18 @@ export interface ItemDetailsOptions {
     close(): void;
 }
 
-const ItemDetailsView: React.FC<ItemDetailsOptions> = (options: ItemDetailsOptions) => {
+const ItemDetailsView: React.FC<ItemDetailsOptions> = (options: ItemDetailsOptions) => ReactDOM.createPortal(
+  <div className={styles.overlay}>
+    <div className={styles.overlayContent}>
+      <a className={styles.closeButton} onClick={options.close}>&times;</a>
+      <h1>{options.details?.title}</h1>
+      <h2>{options.details?.subTitle}</h2>
+      <h3>{options.details?.note}</h3>
+      <img src={options.details?.imageSource} alt={options.details?.title} />
+      <p>{options.details?.longDescription}</p>
+    </div>
+  </div>,
+        document.getElementById('overlay-portal')!,
+);
 
-    return ReactDOM.createPortal(
-        <div className={styles.overlay}>
-            <div className={styles.overlayContent}>
-                <a className={styles.closeButton} onClick={options.close}>&times;</a>
-                <h1>{options.details?.title}</h1>
-                <h2>{options.details?.subTitle}</h2>
-                <h3>{options.details?.note}</h3>
-                <img src={options.details?.imageSource} alt={options.details?.title}/>
-                <p>{options.details?.longDescription}</p>
-            </div>
-        </div>,
-        document.getElementById('overlay-portal')!
-    );
-}
-
-export {ItemDetailsView}
+export { ItemDetailsView };
