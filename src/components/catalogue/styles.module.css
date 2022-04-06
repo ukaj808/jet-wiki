@@ -7,10 +7,11 @@
 }
 
 .category {
-    color: white;
+    color: black;
     text-align: left;
     font-size: 15px;
-    text-shadow: 0 0 4px rgba(0,0,0,.25);
+    font-weight: lighter;
+    text-shadow: 0 0 1px rgba(0,0,0,.25);
 }
 
 .item:hover {
