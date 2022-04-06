@@ -131,7 +131,8 @@ const CocktailSearchHomePageComponent:
                   if (typeof attribute === 'string' || attribute instanceof String) {
                     attribute = item[filterCategory] as String;
                     return values.has(attribute);
-                  } if (filterCategory === 'ingredients') {
+                  }
+                  if (filterCategory === 'ingredients') {
                     attribute = item[filterCategory];
                     return _.intersectionWith(Array.from(values), attribute, _.isEqual).length > 0;
                   }
@@ -162,12 +163,14 @@ const CocktailSearchHomePageComponent:
 
       return (
         <div className={styles.home}>
-
-          <img src={logo} className={styles.logo} alt="Just Eat Takeaway Logo" />
-
+          <h1 className={styles.header}>Just Make a Cocktail</h1>
           <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
-          <button className={showFilterButton() ? styles.filterButton : styles.hidden} type="button" onClick={openFilterSidebar}>
+          <button
+            className={showFilterButton() ? styles.filterButton : styles.hidden}
+            type="button"
+            onClick={openFilterSidebar}
+          >
             <FilterListIcon />
           </button>
 

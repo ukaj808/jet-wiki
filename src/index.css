@@ -1,11 +1,13 @@
 :root {
-  --jet-orange: #ff8000;
+  --jet-orange-light: #ff8000;
+  --jet-orange-dark: #f86600;
   --jet-offwhite: #f8f5f2;
+  --jet-blue: #125fca;
 }
 
 body {
-  font-family: Jet Sans,sans-serif;
-  background: var(--jet-offwhite);
+  font-family: 'Roboto', sans-serif;
+  background: var(--jet-orange-dark);
 }
 
 .container {

@@ -3,13 +3,16 @@
 }
 
 .catalogueSection {
-    border: 1px solid #d7d7d7;
-    background-color: var(--jet-orange);
     display: grid;
 }
 
 .category {
     color: white;
-    text-align: center;
+    text-align: left;
     font-size: 15px;
+    text-shadow: 0 0 4px rgba(0,0,0,.25);
+}
+
+.item:hover {
+    text-shadow: 0 0 4px rgba(0,0,0,.25);
 }

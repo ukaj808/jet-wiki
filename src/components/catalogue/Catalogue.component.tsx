@@ -4,6 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import { Divider } from '@mui/material';
 import { SearchDrink, SearchIngredient } from '../../models/searchbox.api';
 import { SearchItem } from '../../models/cocktail-search-home.api';
 import styles from './styles.module.css';
@@ -43,7 +44,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
     if (category === 'drinks') {
       const drink: SearchDrink = item as SearchDrink;
       return (
-        <ImageListItem key={drink.thumbnailSource}>
+        <ImageListItem sx={{ boxShadow: 3 }} key={drink.thumbnailSource}>
           <img
             src={drink.thumbnailSource}
             srcSet={drink.thumbnailSource}
@@ -52,6 +53,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
           />
           <ImageListItemBar
             title={drink.name}
+            sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800' }}
             actionIcon={(
               <IconButton
                 onClick={() => selectItem(buildCocktailDetails(drink))}
@@ -67,7 +69,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
     } if (category === 'ingredients') {
       const ingredient: SearchIngredient = item as SearchIngredient;
       return (
-        <ImageListItem key={ingredient.imageSource}>
+        <ImageListItem sx={{ boxShadow: 3 }} key={ingredient.imageSource}>
           <img
             src={ingredient.imageSource}
             srcSet={ingredient.imageSource}
@@ -76,6 +78,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
           />
           <ImageListItemBar
             title={ingredient.name}
+            sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800' }}
             actionIcon={(
               <IconButton
                 onClick={() => selectItem(buildIngredientDetails(ingredient))}
@@ -109,7 +112,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
       </h1>
 
       {getCatalogueSectionItems(searchItem)}
-
+      <Divider variant="middle" />
     </section>
   );
 

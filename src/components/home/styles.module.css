@@ -1,23 +1,26 @@
 .home {
-    background-color: var(--jet-offwhite);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    height: 75%;
-    width: 100%;
-    position: sticky;
-    top: 0;
 }
-.logo {
-    width: 300px;
+
+.header {
+    font-weight: 800;
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga","clig";
+    color: #fff;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 0;
+    text-shadow: 0 0 4px rgba(0,0,0,.25);
 }
 
 .filterButton {
-    background-color: var(--jet-orange);
+    background-color: var(--jet-blue);
     color: white;
-    border: 1px var(--jet-orange);
+    border: 1px var(--jet-blue);
     box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
     border-radius: 0 2px 2px 0;
     align-self: start;
