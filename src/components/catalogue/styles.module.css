@@ -1,7 +1,15 @@
-.yellow {
-    background-color: yellow;
-}
-
 .catalogue {
     list-style-type: none;
+}
+
+.catalogueSection {
+    border: 1px solid #d7d7d7;
+    background-color: var(--jet-orange);
+    display: grid;
+}
+
+.category {
+    color: white;
+    text-align: center;
+    font-size: 15px;
 }

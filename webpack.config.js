@@ -1,14 +1,15 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
-const deps = require("./package.json").dependencies;
+const deps = require('./package.json').dependencies;
+
 module.exports = {
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: 'http://localhost:8080/',
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
 
   devServer: {
@@ -20,35 +21,39 @@ module.exports = {
     rules: [
       {
         test: /\.m?js/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
         resolve: {
           fullySpecified: false,
         },
       },
       {
         test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", {
-          loader: "css-loader",
+        use: ['style-loader', {
+          loader: 'css-loader',
           options: {
             modules: true,
-            importLoaders: 1
-          }
-        }, "postcss-loader"],
+            importLoaders: 1,
+          },
+        }, 'postcss-loader'],
       },
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "CocktailSearch",
-      filename: "remoteEntry.js",
+      name: 'CocktailSearch',
+      filename: 'remoteEntry.js',
       remotes: {
         'api-search-box': 'ApiSearchBox@http://localhost:7195/remoteEntry.js',
       },
@@ -58,14 +63,14 @@ module.exports = {
           singleton: true,
           requiredVersion: deps.react,
         },
-        "react-dom": {
+        'react-dom': {
           singleton: true,
-          requiredVersion: deps["react-dom"],
+          requiredVersion: deps['react-dom'],
         },
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
   ],
-};;
+};

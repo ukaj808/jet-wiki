@@ -99,10 +99,10 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
   );
 
   const getCatalogueSection = (searchItem: SearchItem): JSX.Element | undefined => (
-    <section key={`div$${searchItem.category}`}>
+    <section className={styles.catalogueSection} key={`div$${searchItem.category}`}>
 
       <h1
-        className={styles.yellow}
+        className={styles.category}
         key={`h1$${searchItem.category}`}
       >
         {searchItem.category.charAt(0).toUpperCase() + searchItem.category.slice(1)}

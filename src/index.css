@@ -1,5 +1,11 @@
+:root {
+  --jet-orange: #ff8000;
+  --jet-offwhite: #f8f5f2;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Jet Sans,sans-serif;
+  background: var(--jet-offwhite);
 }
 
 .container {

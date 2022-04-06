@@ -1,5 +1,26 @@
-.yellow {
-    background-color: yellow;
+.home {
+    background-color: var(--jet-offwhite);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 75%;
+    width: 100%;
+    position: sticky;
+    top: 0;
+}
+.logo {
+    width: 300px;
+}
+
+.filterButton {
+    background-color: var(--jet-orange);
+    color: white;
+    border: 1px var(--jet-orange);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
+    border-radius: 0 2px 2px 0;
+    align-self: start;
 }
 
 .catalogue {

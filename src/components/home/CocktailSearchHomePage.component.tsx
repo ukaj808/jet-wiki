@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import ApiSearchBox from 'api-search-box/ApiSearchBox';
 import _ from 'lodash';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { SearchItem, SearchResults } from '../../models/cocktail-search-home.api';
 import { SearchDrink, SearchIngredient } from '../../models/searchbox.api';
 import FilterSidebar from '../sidebar/FilterSidebar.component';
 import Catalogue from '../catalogue/Catalogue.component';
 import styles from './styles.module.css';
+import logo from './jet-logo.png';
 
 export interface CocktailSearchHomePageOptions {
     profileId: string;
@@ -159,11 +161,15 @@ const CocktailSearchHomePageComponent:
       const showFilterButton = () => filterOptions.possibleFilters.size > 0;
 
       return (
-        <>
+        <div className={styles.home}>
+
+          <img src={logo} className={styles.logo} alt="Just Eat Takeaway Logo" />
 
           <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
-          <button className={showFilterButton() ? undefined : styles.hidden} type="button" onClick={openFilterSidebar}>Filters</button>
+          <button className={showFilterButton() ? styles.filterButton : styles.hidden} type="button" onClick={openFilterSidebar}>
+            <FilterListIcon />
+          </button>
 
           <Catalogue items={filterOptions.filtersApplied
             ? filterOptions.filteredResults
@@ -185,7 +191,7 @@ const CocktailSearchHomePageComponent:
             }}
           />
           )}
-        </>
+        </div>
       );
     };
 
