@@ -163,7 +163,12 @@ const CocktailSearchHomePageComponent:
 
       return (
         <div className={styles.home}>
-          <h1 className={styles.header}>Just Make a Cocktail</h1>
+          <h1 className={styles.header}>
+            Just Drink a
+            <em className={styles.cocktail}>
+                &nbsp;Cocktail
+            </em>
+          </h1>
           <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
           <button

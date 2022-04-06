@@ -56,7 +56,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
           />
           <ImageListItemBar
             title={drink.name}
-            sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800' }}
+            sx={{ fontFamily: "'Roboto', sans-serif", fontWeight: '800' }}
             actionIcon={(
               <IconButton
                 onClick={() => selectItem(buildCocktailDetails(drink))}
@@ -81,7 +81,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
           />
           <ImageListItemBar
             title={ingredient.name}
-            sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: '800' }}
+            sx={{ fontFamily: "'Roboto', sans-serif", fontWeight: '800' }}
             actionIcon={(
               <IconButton
                 onClick={() => selectItem(buildIngredientDetails(ingredient))}

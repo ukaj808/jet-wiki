@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import {
+  Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel,
+} from '@mui/material';
 import styles from './styles.module.css';
 
 export interface Filter {
@@ -26,9 +30,9 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
     target: { name },
   }: React.ChangeEvent<HTMLInputElement>) => setSelectedFilters((prev) => {
     const result = new Map(prev);
-
+    console.log(result);
     const selected = result.get(category);
-
+    console.log(`selected: ${selected}`);
     if (selected == null) {
       result.set(category, new Set([name]));
     } else if (selected.has(name)) {
@@ -53,48 +57,56 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
 
   const getPossibleFilters = () : JSX.Element[] => Array.from(options.filters?.entries())
     .filter(([, val]) => val != null && val.size > 0).map(([filterCategory, values]) => (
-      <div key={filterCategory}>
-
-        <h3>{filterCategory}</h3>
+      <FormGroup key={filterCategory}>
+        <FormLabel component="legend" sx={{ fontFamily: "'Roboto', sans-serif" }}>{filterCategory.charAt(0).toUpperCase() + filterCategory.slice(1)}</FormLabel>
 
         <ul key={filterCategory} className={styles.filters}>
-
           {Array.from(values).map((filterValue) => (
-            <li key={filterValue}>
-              <input
-                type="checkbox"
-                name={filterValue}
-                checked={getFilterChecked(filterCategory, filterValue)}
-                onChange={(input) => handleChange(filterCategory, input)}
-              />
-              <label htmlFor={filterValue}>{filterValue}</label>
-            </li>
+            <FormControlLabel
+              sx={{ fontFamily: "'Roboto', sans-serif" }}
+              key={filterValue}
+              control={(
+                <Checkbox
+                  name={filterValue}
+                  checked={getFilterChecked(filterCategory, filterValue)}
+                  onChange={(input) => handleChange(filterCategory, input)}
+                />
+                )}
+              label={filterValue}
+            />
           ))}
         </ul>
-      </div>
+
+      </FormGroup>
     ));
 
   return ReactDOM.createPortal(
     <div className={styles.sidebar}>
 
-      <button type="button" className={styles.closeButton} onClick={options.close}>&times;</button>
+      <button type="button" className={styles.closeButton} onClick={options.close}>
+        <KeyboardBackspaceIcon fontSize="large" />
+      </button>
 
       {getPossibleFilters()}
 
-      <button
-        type="button"
-        onClick={() => options.apply(selectedFilters)}
-        disabled={selectedFilters.size === 0}
-      >
-        Apply Filters
-      </button>
-      <button
-        type="button"
-        onClick={clearFilters}
-        disabled={selectedFilters.size === 0}
-      >
-        Clear Filters
-      </button>
+      <div className={styles.filterActions}>
+        <button
+          className={styles.filterActionBtn}
+          type="button"
+          onClick={() => options.apply(selectedFilters)}
+          disabled={selectedFilters.size === 0}
+        >
+          Apply Filters
+        </button>
+        <button
+          className={styles.filterActionBtn}
+          type="button"
+          onClick={clearFilters}
+          disabled={selectedFilters.size === 0}
+        >
+          Clear Filters
+        </button>
+      </div>
     </div>,
         document.getElementById('overlay-portal')!,
   );

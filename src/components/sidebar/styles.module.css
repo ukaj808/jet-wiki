@@ -4,7 +4,7 @@
     position: fixed; /* Stay in place */
     top: 0;
     left: 0;
-    background-color: skyblue;
+    background-color: var(--jet-offwhite);
     transition: 0.5s;
     overflow: auto;
 
@@ -27,7 +27,26 @@
 
 .closeButton {
     align-self: end;
-    font-size: 60px;
-    margin-right: 15px;
     cursor: default;
+    background-color: var(--jet-offwhite);
+    border: 1px var(--jet-offwhite);
+    margin: 15px;
+}
+
+.filterActions {
+
+}
+
+.filterActionBtn {
+    background-color: #125fca;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid #125fca;
+    border-radius: 0 2px 2px 0;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: 600;
+    padding: 1em;
+    margin: 5px;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
 }
