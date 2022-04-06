@@ -44,7 +44,10 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
     if (category === 'drinks') {
       const drink: SearchDrink = item as SearchDrink;
       return (
-        <ImageListItem sx={{ boxShadow: 3 }} key={drink.thumbnailSource}>
+        <ImageListItem
+          sx={{ boxShadow: 3, maxWidth: '300px', maxHeight: '300px' }}
+          key={drink.thumbnailSource}
+        >
           <img
             src={drink.thumbnailSource}
             srcSet={drink.thumbnailSource}
@@ -69,7 +72,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
     } if (category === 'ingredients') {
       const ingredient: SearchIngredient = item as SearchIngredient;
       return (
-        <ImageListItem sx={{ boxShadow: 3 }} key={ingredient.imageSource}>
+        <ImageListItem sx={{ boxShadow: 3, maxWidth: '300px', maxHeight: '300px' }} key={ingredient.imageSource}>
           <img
             src={ingredient.imageSource}
             srcSet={ingredient.imageSource}
@@ -96,7 +99,7 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
   };
 
   const getCatalogueSectionItems = (searchItem: SearchItem): JSX.Element => (
-    <ImageList key={searchItem.category}>
+    <ImageList key={searchItem.category} cols={3}>
       {searchItem.items.map((item) => getCatalogueItem(searchItem.category, item))}
     </ImageList>
   );
