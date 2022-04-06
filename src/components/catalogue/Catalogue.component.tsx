@@ -24,19 +24,17 @@ const Catalogue: React.FC<CatalogueOptions> = function Catalogue(options: Catalo
   };
 
   const buildCocktailDetails = (drink: SearchDrink): Details => ({
-    title: drink.name,
-    subTitle: drink.category,
-    note: drink.glass,
-    imageSource: drink.imageSource,
-    longDescription: `Ingredients: ${drink.ingredients.join(', ')}`,
+    title: ['Name', drink.name],
+    subTitle: ['Category', drink.category],
+    note: ['Glass', drink.glass],
+    imageSource: [drink.thumbnailSource, drink.name],
+    longDescription: ['Ingredients', drink.ingredients.join(', ')],
   });
 
   const buildIngredientDetails = (ingredient: SearchIngredient): Details => ({
-    title: ingredient.name,
-    subTitle: 'Ingredient',
-    note: '',
-    imageSource: ingredient.imageSource,
-    longDescription: ingredient.description,
+    title: ['Name', ingredient.name],
+    imageSource: [ingredient.imageSource, ingredient.name],
+    longDescription: ['Description', ingredient.description],
   });
 
   // todo: generify!!

@@ -16,3 +16,11 @@
 .item:hover {
     text-shadow: 0 0 4px rgba(0,0,0,.25);
 }
+
+.closeButton {
+    align-self: end;
+    cursor: default;
+    background-color: var(--jet-offwhite);
+    border: 1px var(--jet-offwhite);
+    margin: 15px;
+}
