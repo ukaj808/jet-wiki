@@ -40,3 +40,8 @@
 .hidden {
     visibility: collapse;
 }
+
+.logo{
+    width: 90%;
+    max-width: 500px;
+}

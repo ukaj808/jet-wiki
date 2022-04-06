@@ -10,7 +10,7 @@ import { SearchDrink, SearchIngredient } from '../../models/searchbox.api';
 import FilterSidebar from '../sidebar/FilterSidebar.component';
 import Catalogue from '../catalogue/Catalogue.component';
 import styles from './styles.module.css';
-import logo from './jet-logo.png';
+import logo from './JET-logo.svg';
 
 export interface CocktailSearchHomePageOptions {
     profileId: string;
@@ -163,12 +163,7 @@ const CocktailSearchHomePageComponent:
 
       return (
         <div className={styles.home}>
-          <h1 className={styles.header}>
-            Just Drink a
-            <em className={styles.cocktail}>
-                &nbsp;Cocktail
-            </em>
-          </h1>
+          <img className={styles.logo} src={logo} alt="Logo" />
           <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
           <button
