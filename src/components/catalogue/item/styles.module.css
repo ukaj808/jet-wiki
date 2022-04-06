@@ -63,7 +63,7 @@
     text-align: center;
     font-size: 125%;
     font-weight: bold;
-    background: var(--jet-orange-light);
+    background: var(--jet-orange-dark);
     color: white;
 }
 
@@ -83,7 +83,7 @@
 
 .closeButton {
     cursor: default;
-    background-color: var(--jet-orange-light);
-    border: 1px var(--jet-orange-light);
+    background-color: var(--jet-orange-dark);
+    border: 1px var(--jet-orange-dark);
     align-self: end;
 }
