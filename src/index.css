@@ -7,7 +7,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: var(--jet-orange-dark);
+  background-image: url("components/home/Wave.svg");
+
 }
 
 .container {
@@ -15,4 +16,13 @@ body {
   margin: auto;
   max-width: 800px;
   margin-top: 20px;
+}
+
+
+@media (min-width: 1080px) {
+
+  body {
+    background-size: cover;
+  }
+
 }

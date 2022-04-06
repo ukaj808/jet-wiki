@@ -166,18 +166,21 @@ const CocktailSearchHomePageComponent:
           <img className={styles.logo} src={logo} alt="Logo" />
           <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
-          <button
-            className={showFilterButton() ? styles.filterButton : styles.hidden}
-            type="button"
-            onClick={openFilterSidebar}
-          >
-            <FilterListIcon />
-          </button>
+          <div className={styles.homeCatalogue}>
 
-          <Catalogue items={filterOptions.filtersApplied
-            ? filterOptions.filteredResults
-            : searchResults.searchItems}
-          />
+            <button
+              className={showFilterButton() ? styles.filterButton : styles.hidden}
+              type="button"
+              onClick={openFilterSidebar}
+            >
+              <FilterListIcon />
+            </button>
+
+            <Catalogue items={filterOptions.filtersApplied
+              ? filterOptions.filteredResults
+              : searchResults.searchItems}
+            />
+          </div>
 
           {filterOptions.sidebarOpen && (
           <FilterSidebar
