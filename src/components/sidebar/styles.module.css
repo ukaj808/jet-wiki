@@ -16,10 +16,6 @@
     align-items: start;
 }
 
-.collapsed {
-    visibility: collapse;
-}
-
 .filters {
     list-style-type: none;
     padding-left: 0;
@@ -31,10 +27,6 @@
     background-color: var(--jet-offwhite);
     border: 1px var(--jet-offwhite);
     margin: 15px;
-}
-
-.filterActions {
-
 }
 
 .filterActionBtn {

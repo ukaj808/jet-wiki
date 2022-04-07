@@ -5,7 +5,7 @@ const deps = require('./package.json').dependencies;
 
 module.exports = {
   output: {
-    publicPath: 'http://localhost:8080/',
+    publicPath: 'auto',
   },
 
   resolve: {
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   devServer: {
-    port: 8080,
+    port: 3000,
     historyApiFallback: true,
   },
 
@@ -52,10 +52,9 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: 'CocktailSearch',
-      filename: 'remoteEntry.js',
+      name: 'cocktail_search_home',
       remotes: {
-        'api-search-box': 'ApiSearchBox@http://localhost:7195/remoteEntry.js',
+        'api-search-box': 'api_search_box@http://localhost:3001/remoteEntry.js',
       },
       shared: {
         ...deps,

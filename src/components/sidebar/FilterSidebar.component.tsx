@@ -89,7 +89,7 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
 
       {getPossibleFilters()}
 
-      <div className={styles.filterActions}>
+      <div>
         <button
           className={styles.filterActionBtn}
           type="button"

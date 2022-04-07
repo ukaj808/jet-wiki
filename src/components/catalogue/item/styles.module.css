@@ -12,15 +12,6 @@
     transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
 
-
-.overlayContent {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--jet-offwhite);
-    width: 80%; /* 100% width */
-    height: 80%; /* 100% width */
-}
-
 .info {
 
     display: flex;
@@ -46,17 +37,6 @@
 .itemImage {
     width: 25%;
     max-width: 300px;
-}
-
-.descriptors {
-    background-color: var(--jet-orange-light);
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    padding-top: 30px;
-    width: 80%;
-    height: 40%;
-    align-self: center;
 }
 
 .header {
