@@ -52,9 +52,9 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: 'cocktail_search_home',
+      name: 'jet_wiki',
       remotes: {
-        'api-search-box': 'api_search_box@http://localhost:3001/remoteEntry.js',
+        'search_profiler_components': 'search_profiler_components@http://localhost:3001/remoteEntry.js',
       },
       shared: {
         ...deps,

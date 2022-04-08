@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import {
-  Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel,
-} from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
 import styles from './styles.module.css';
 
 export interface Filter {
@@ -30,9 +31,7 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
     target: { name },
   }: React.ChangeEvent<HTMLInputElement>) => setSelectedFilters((prev) => {
     const result = new Map(prev);
-    console.log(result);
     const selected = result.get(category);
-    console.log(`selected: ${selected}`);
     if (selected == null) {
       result.set(category, new Set([name]));
     } else if (selected.has(name)) {
@@ -93,7 +92,11 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
         <button
           className={styles.filterActionBtn}
           type="button"
-          onClick={() => options.apply(selectedFilters)}
+          onClick={() => {
+              console.log(selectedFilters);
+              options.apply(selectedFilters);
+              setTimeout(() => selectedFilters, 1000)
+          }}
           disabled={selectedFilters.size === 0}
         >
           Apply Filters

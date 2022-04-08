@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
-import ApiSearchBox from 'api-search-box/ApiSearchBox';
+import SearchBox from 'search_profiler_components/SearchBox';
 import _ from 'lodash';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { SearchItem, SearchResults } from '../../models/cocktail-search-home.api';
-import { SearchDrink, SearchIngredient } from '../../models/searchbox.api';
+import { SearchItem, SearchResults } from '../../models/cocktail-wiki-home.api';
+import { SearchDrink, SearchIngredient } from '../../models/search-profiler-cocktail.api';
 import FilterSidebar from '../sidebar/FilterSidebar.component';
 import Catalogue from '../catalogue/Catalogue.component';
 import styles from './styles.module.css';
-import logo from './JET-logo.svg';
+import logo from './images/JET-Logo.svg';
 
-export interface CocktailSearchHomePageOptions {
+export interface CocktailWikiHomePageOptions {
     profileId: string;
 }
 
@@ -23,9 +21,9 @@ export interface FilterOptions {
     filteredResults: SearchItem[];
 }
 
-const CocktailSearchHomePageComponent:
-    React.FC<CocktailSearchHomePageOptions> = function
-    CocktailSearchHomePageComponent(options: CocktailSearchHomePageOptions) {
+const CocktailWikiSearchHomePage:
+    React.FC<CocktailWikiHomePageOptions> = function
+    CocktailWikiSearchHomePage(options: CocktailWikiHomePageOptions) {
       const { profileId } = options;
 
       const [searchResults, setSearchResults] = useState<SearchResults>({
@@ -154,8 +152,6 @@ const CocktailSearchHomePageComponent:
             filtersApplied: true,
             filteredResults: filteredSearchItems(searchResults.searchItems, selectedFilters),
           }));
-        } else {
-          clearFilters();
         }
       };
 
@@ -164,7 +160,7 @@ const CocktailSearchHomePageComponent:
       return (
         <div className={styles.home}>
           <img className={styles.logo} src={logo} alt="Logo" />
-          <ApiSearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
+          <SearchBox type="cocktail" profileId={searchResults.profileId} handleResults={handleResults} />
 
           <div className={styles.homeCatalogue}>
 
@@ -201,4 +197,4 @@ const CocktailSearchHomePageComponent:
       );
     };
 
-export default CocktailSearchHomePageComponent;
+export default CocktailWikiSearchHomePage;

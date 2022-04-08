@@ -5,8 +5,8 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { Divider } from '@mui/material';
-import { SearchDrink, SearchIngredient } from '../../models/searchbox.api';
-import { SearchItem } from '../../models/cocktail-search-home.api';
+import { SearchDrink, SearchIngredient } from '../../models/search-profiler-cocktail.api';
+import { SearchItem } from '../../models/cocktail-wiki-home.api';
 import styles from './styles.module.css';
 import { Details, ItemDetailsView } from './item/ItemDetailsView.component';
 

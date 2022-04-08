@@ -20,15 +20,19 @@ const ItemDetailsView: React.FC<ItemDetailsOptions> = (options: ItemDetailsOptio
   <div className={styles.overlay}>
     <div className={styles.info}>
       <table className={styles.infoTable}>
+        <thead className={styles.header}>
+          <tr>
+            <td colSpan={2}>
+              <div className={styles.itemTitle}>
+                <span>{options.details?.title?.at(1)}</span>
+                <button type="button" className={styles.closeButton} onClick={options.close}>
+                  <KeyboardBackspaceIcon fontSize="large" />
+                </button>
+              </div>
+            </td>
+          </tr>
+        </thead>
         <tbody>
-          <th className={styles.header} colSpan={2}>
-            <div className={styles.itemTitle}>
-              <span>{options.details?.title?.at(1)}</span>
-              <button type="button" className={styles.closeButton} onClick={options.close}>
-                <KeyboardBackspaceIcon fontSize="large" />
-              </button>
-            </div>
-          </th>
           <tr>
             <td className={styles.image} colSpan={2}>
               <img

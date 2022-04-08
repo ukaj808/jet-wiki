@@ -28,6 +28,7 @@
 .infoTable {
     background-color: var(--jet-offwhite);
     padding: 0.2em;
+    width: 100%;
 }
 
 .infoTable td {
@@ -35,7 +36,7 @@
 }
 
 .itemImage {
-    width: 25%;
+    width: 40%;
     max-width: 300px;
 }
 
