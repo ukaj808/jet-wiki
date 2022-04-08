@@ -13,6 +13,7 @@ export interface Filter {
 }
 
 export interface FilterOptions {
+    show: boolean;
     searchCategory: string;
     // Key: Category Name, Value: Filters and their attribute id
     filters: Map<string, Set<string>>;
@@ -79,8 +80,8 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
       </FormGroup>
     ));
 
-  return ReactDOM.createPortal(
-    <div className={styles.sidebar}>
+  return (
+    <div className={options.show ? styles.sidebar: styles.collapsed}>
 
       <button type="button" className={styles.closeButton} onClick={options.close}>
         <KeyboardBackspaceIcon fontSize="large" />
@@ -93,9 +94,7 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
           className={styles.filterActionBtn}
           type="button"
           onClick={() => {
-              console.log(selectedFilters);
               options.apply(selectedFilters);
-              setTimeout(() => selectedFilters, 1000)
           }}
           disabled={selectedFilters.size === 0}
         >
@@ -110,8 +109,7 @@ const FilterSidebar: React.FC<FilterOptions> = function FilterSidebar(options: F
           Clear Filters
         </button>
       </div>
-    </div>,
-        document.getElementById('overlay-portal')!,
+    </div>
   );
 };
 

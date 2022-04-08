@@ -178,8 +178,8 @@ const CocktailWikiSearchHomePage:
             />
           </div>
 
-          {filterOptions.sidebarOpen && (
           <FilterSidebar
+              show={filterOptions.sidebarOpen}
             searchCategory=""
             filters={filterOptions.possibleFilters}
             close={closeFilterSidebar}
@@ -192,7 +192,7 @@ const CocktailWikiSearchHomePage:
               closeFilterSidebar();
             }}
           />
-          )}
+
         </div>
       );
     };
